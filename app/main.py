@@ -1,6 +1,13 @@
 from fastapi import FastAPI
-from app.routers import users
+from app.database.database import engine, Base
+from app.routers import user
 
-app = FastAPI()
+Base.metadata.create_all(bind=engine)
 
-app.include_router(users.router)
+app = FastAPI(title="FastAPI con MySQL")
+
+app.include_router(user.router)
+
+@app.get("/")
+def read_root():
+    return {"message": "API conectada a MySQL correctamente"}
