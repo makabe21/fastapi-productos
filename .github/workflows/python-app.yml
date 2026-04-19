@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [ principal ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.12
+
+    - name: Instalar dependencias
+      run: pip install -r requisitos.txt
+
+    - name: Ejecutar tests
+      run: pytest
